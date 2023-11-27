@@ -1,4 +1,4 @@
-## Project Sturcture 
+## Project Workflow 
       TB3
         |__camera_calibration
         |                   |__intrinsic_camera_calibration
@@ -11,8 +11,20 @@
         |              |
         |              |__action
         |                      |__lane_detection
-        |                   
+        |__aruco
+        |      |__marker_detection
+        |                        |__pub_tb3_marker_distance 
+        |
         |__drive
+               |__pub_tb3_stop_status
+               |__sub_N_pick_status
+
+      Niryo
+        |__sub_tb3_stop_status
+        |
+        |__pick_n_place
+        |
+        |__pub_N_pick_status
                           
 
 
