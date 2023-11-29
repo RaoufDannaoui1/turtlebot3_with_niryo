@@ -64,7 +64,7 @@ class ControlLane():
             self.stopped = False
 
     def cbFollowLane(self, desired_center):
-        if not self.stopped:
+        if not self.stopped and self.timeStopped <= 1:
             center = desired_center.data
 
             error = center - 500
@@ -84,31 +84,11 @@ class ControlLane():
             twist.angular.y = 0
             twist.angular.z = -max(angular_z, -2.0) if angular_z < 0 else -min(angular_z, 2.0)
             self.pub_cmd_vel.publish(twist)
-        else:
+        elif self.timeStopped <= 1:
             print("stopped")
             self.pub_niryo.publish(1)
-            # rospy.sleep(2)
-
-            # robot = NiryoRobot("192.168.0.150")
-
-            # # robot.calibrate_auto()
-
-            # try:
-            #     # Move to an observation position then
-            #     robot.move_pose(*[0.001, -0.213, 0.217, 3.1, 1.395, 1.559])
-            #     # Try to do a vision pick:
-            #     if robot.vision_pick('default_workspace_turltelbot', 0/1000.0, ObjectShape.CIRCLE, ObjectColor.RED)[0]:
-            #         # If an object has been taken, do:
-            #         robot.place_from_pose(*[0.326, -0.015, 0.314, -2.232, 1.471, -2.234])
-            #     robot.move_pose(*[0.326, -0.015, 0.364, -2.175, 1.476, -2.178])
-            #     robot.move_pose(*[0, -0.284, 0.325, 2.928, 1.346, 1.383])
-
-            # except NiryoRosWrapperException as e:
-            #     sys.stderr.write(str(e))
-
-            # robot.close_connection()
-            # self.stopped = False
-            # send messqge thru topic to niryo 
+        elif self.timeStopped > 1:
+            print("job finished")
 
     def fnShutDown(self):
         rospy.loginfo("Shutting down. cmd_vel will be 0")
