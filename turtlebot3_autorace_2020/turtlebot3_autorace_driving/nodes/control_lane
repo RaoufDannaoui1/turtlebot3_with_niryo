@@ -88,6 +88,7 @@ class ControlLane():
             print("stopped")
             self.pub_niryo.publish(1)
         elif self.timeStopped > 1:
+            self.stopped = True
             print("job finished")
 
     def fnShutDown(self):
