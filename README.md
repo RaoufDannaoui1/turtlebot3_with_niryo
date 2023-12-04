@@ -49,3 +49,10 @@ Pick and Place.
 <p float="middle">
   <img src="images/pick_n_place.gif"/>
 </p>
+
+
+Final Demo
+
+<p float="middle">
+  <img src="images/finalVideo.gif"/>
+</p>
