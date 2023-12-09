@@ -3,23 +3,14 @@
   <img src="images/main.png"/>
 </div>
 
-<table style="width:100%; border: none">
-<tr>
-<td> 
-
 Authors:
   - Abdel Raouf Dannaoui 
   - Nouriddin Asfour
-</td>
-
-<td>
 
 Supervisors:
  - Joaquin Jorge Rodriguez
  - Raphael Duverne
-</td>
-</tr>
-</table>
+
 
 
 
