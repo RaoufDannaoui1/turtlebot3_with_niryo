@@ -3,7 +3,7 @@
   <img src="images/main.png"/>
 </div>
 
-<table style="width:100%">
+<table style="width:100%; border: none">
 <tr>
 <td> 
 
