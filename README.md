@@ -101,7 +101,7 @@ Move the board to the x-axis, y-axis and, z-axis. Continue moving the board till
   <img src="images/int_calib_calib.png"/>
 </div>
 
-Now click on the Save button as shown below  to save the calibration data. Then a `calibrationdata.tar.gz` folder will be created at `/tmp` folder. Extract `calibrationdata.tar.gz` folder, and open `ost.yaml`.
+Now click on the Save button as shown below  to save the calibration data. Then a `calibrationdata.tar.gz` folder will be created in `/tmp` folder. Extract `calibrationdata.tar.gz` folder, and open `ost.yaml`.
 
 <div style="text-align: center">
   <img src="images/int_calib_save.png"/>
@@ -369,7 +369,7 @@ In this code, we used `open-cv` to have the `aruco` features. Then from the intr
 ### Drive Controller
 
 In this controller we are subscribed to the `/aruco_distance topic`, after the autonomous drive of the TB3 and arriving at the aruco area, it will check if the distance is satisfied.
-Then it will decided based on the need of the Niryo job, if needed it will stop for the Niryo send a signal over `/niryo_con` topic to do his task. When Niryo Finish his task, he will resend another signal on the same `/niryo_con` topic telling the TB3 to continue the autonomous drive. If Niryo Job is not needed The TB3 will stop.
+Then it will decided based on the need of the Niryo job, if needed it will stop for the Niryo to send a signal over `/niryo_con` topic to do his task. When Niryo Finishes his task, he will resend another signal on the same `/niryo_con` topic telling the TB3 to continue the autonomous drive. If Niryo Job is not needed The TB3 will stop.
 
 ```python
 #!/usr/bin/env python 
