@@ -12,6 +12,27 @@ Supervisors:
  - Raphael Duverne
 
 
+## Table of Contents
+1. [Project Goal](#project-goal)
+2. [Project Workflow](#project-workflow)
+3. [Required Libraries and Packages](#required-libraries-and-packages)
+4. [Installing the Required Packages](#installing-the-required-packages)
+5. [TurtleBot3 Configuration](#turtlebot3-configuration)
+    - [Connection](#tb3-connection)
+    - [Intrinsic Camera Calibration](#intrinsic-camera-calibration)
+    - [Extrinsic Camera Calibration](#extrinsic-camera-calibration)
+    - [Check Calibration Result](#check-calibration-result)
+    - [Lane Detection](#lane-detection)
+    - [ArUco Tag Detection](#aruco-tag-detection)
+    - [Drive Controller](#drive-controller)
+6. [Niryo Ned 2 Configuration](#niryo-ned-2-configuration)
+    - [Connection](#niryo-connection)
+    - [Calibration](#calibration)
+    - [Program](#program)
+7. [Autonomous Robotic Coordination](#autonomous-robotic-coordination)
+    - [Expected Result](#expected-result)
+    - [Running the Program](#running-the-program)
+8. [Demo Videos](#demo-videos)
 
 
 
@@ -31,7 +52,7 @@ Our TurtleBot3 autonomously navigates between yellow and white lines based on [A
 
 
 
-## Required Libraries and Packages to Start
+## Required Libraries and Packages
 - ros-noetic-image-transport 
 - ros-noetic-cv-bridge 
 - ros-noetic-vision-opencv 
@@ -44,7 +65,7 @@ Our TurtleBot3 autonomously navigates between yellow and white lines based on [A
 
 
 
-## Installing the Required Packages.
+## Installing the Required Packages
 For this step, we followed the instructions provided on [emanual robotics][1], then manipulated those packages to match our project goal. Installing our edited AutoRace 2020 meta package on your Remote PC lets you start.
 
 ```bash
@@ -63,7 +84,7 @@ pip install pyniryo2
 
 
 ## TurtleBot3 Configuration
-### Connection
+### TB3 Connection
 Connect to the turtlebot3 through SSH on the specific IP and use `napelturbot` as the password.
 ```bash
 ssh ubuntu@192.168.0.200
@@ -470,7 +491,7 @@ if __name__ == '__main__':
 
 
 ## Niryo Ned 2 Configuration
-### Connection
+### Niryo Connection
 
 Before Connecting to the Niro, we should reserve an IP for it on the router, and then connect to it through SSH on the specific IP and use `roboticcs` as a password, in my case, I am using ethernet to connect.
 ```bash
