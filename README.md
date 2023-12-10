@@ -90,9 +90,21 @@ pip install pyniryo2
 </div>
 
 ### TB3 Connection
-Connect to the turtlebot3 through SSH on the specific IP and use `napelturbot` as the password.
+Connect to the turtlebot3 through SSH on a reserved specific IP on the router and use `napelturbot` as the password.
 ```bash
 ssh ubuntu@192.168.0.200
+```
+open `.bashrc` file and check for the below lines
+
+```bash
+export ROS_MASTER_URI=http://192.168.0.100:11311
+export ROS_HOSTNAME=192.168.0.200
+```
+
+Save and source it using 
+
+```bash
+source ./bashrc
 ```
 
 Once connected, do not forget to bring up your robot.
