@@ -295,6 +295,12 @@ rqt_image_view
 
 Using the camera on the TB3 we created an aruco tag detector which will detect the tag and publish on `/aruco_distance` topic the distance between the robot and the aruco tag.
 
+
+
+| **Aruco Marker** | **Detected Marker** |
+| -------------------- | -------------------- |
+| ![Aruco Marker](images/aruco_tag.jpg) | ![Detected Marker](images/aruco_tag_detected.jpg) |
+
 ```python
 #!/usr/bin/env python3
 
