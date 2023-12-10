@@ -529,7 +529,7 @@ The below videos represent some tests on the TB3 autonomous drive in dark and li
 | **Final Result** |
 | ---------------- |
 <video width="800" height="450" controls>
-  <source src="images/final_result.mp4" type="video/mp4">
+  <source src="/images/final_result.mp4" type="video/mp4">
 </video>
 
 
