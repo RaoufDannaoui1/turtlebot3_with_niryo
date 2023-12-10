@@ -92,13 +92,13 @@ pip install pyniryo2
 ### TB3 Connection
 Connect to the turtlebot3 through SSH on a reserved specific IP on the router and use `napelturbot` as the password.
 ```bash
-ssh ubuntu@192.168.0.200
+ssh ubuntu@{IP_ADDRESS_OF_RASPBERRY_PI}
 ```
 open `.bashrc` file and check for the below lines
 
 ```bash
 export ROS_MASTER_URI=http://192.168.0.100:11311
-export ROS_HOSTNAME=192.168.0.200
+export ROS_HOSTNAME={IP_ADDRESS_OF_RASPBERRY_PI}
 ```
 
 Save and source it using 
@@ -516,14 +516,14 @@ if __name__ == '__main__':
 
 Before Connecting to the Niro, we should reserve an IP for it on the router, and then connect to it through SSH on the specific IP and use `roboticcs` as a password, in my case, I am using ethernet to connect.
 ```bash
-ssh niryo@192.168.0.150
+ssh niryo@{IP_ADDRESS_OF_NIRYO}
 ```
 
 open `.bashrc` file and add 
 
 ```bash
 export ROS_MASTER_URI=http://192.168.0.100:11311
-export ROS_HOSTNAME=192.168.0.150
+export ROS_HOSTNAME={IP_ADDRESS_OF_NIRYO}
 ```
 
 Save and source it using 
