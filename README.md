@@ -369,7 +369,7 @@ In this code, we used `open-cv` to have the `aruco` features. Then from the intr
 ### Drive Controller
 
 In this controller we are subscribed to the `/aruco_distance topic`, after the autonomous drive of the TB3 and arriving at the aruco area, it will check if the distance is satisfied.
-Then it will decided based on the need of the Niryo job, if needed it will stop for the Niryo to do his task and then continue the autonomous drive. If niryo Job is not needed The robot will stop.
+Then it will decided based on the need of the Niryo job, if needed it will stop for the Niryo send a signal over `/niryo_con` topic to do his task. When Niryo Finish his task, he will resend another signal on the same `/niryo_con` topic telling the TB3 to continue the autonomous drive. If Niryo Job is not needed The TB3 will stop.
 
 ```python
 #!/usr/bin/env python 
