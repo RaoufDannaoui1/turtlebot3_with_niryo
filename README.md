@@ -28,6 +28,7 @@ Supervisors:
 6. [Niryo Ned 2 Configuration](#niryo-ned-2-configuration)
     - [Connection](#niryo-connection)
     - [Calibration](#calibration)
+    - [Workspace Creation](#workspace-creation)
     - [Program](#program)
 7. [Autonomous Robotic Coordination](#autonomous-robotic-coordination)
     - [Expected Result](#expected-result)
@@ -84,6 +85,10 @@ pip install pyniryo2
 
 
 ## TurtleBot3 Configuration
+<div style="text-align: center">
+  <img src="images/turtlebot3_burger.png"/>
+</div>
+
 ### TB3 Connection
 Connect to the turtlebot3 through SSH on the specific IP and use `napelturbot` as the password.
 ```bash
@@ -491,6 +496,10 @@ if __name__ == '__main__':
 
 
 ## Niryo Ned 2 Configuration
+<div style="text-align: center">
+  <img src="images/niryo_ned2.webp"/>
+</div>
+
 ### Niryo Connection
 
 Before Connecting to the Niro, we should reserve an IP for it on the router, and then connect to it through SSH on the specific IP and use `roboticcs` as a password, in my case, I am using ethernet to connect.
@@ -526,6 +535,16 @@ Now open the Niryo Studion application on your PC and connect to the robot
 ### Calibration
 
 Since Niryo is a smart manipulator it has an auto-calibration system with just one click.
+
+### Workspace Creation
+
+Before utilizing the Vision functions, it's necessary to establish the workspace(s) you intend to employ. You have the option to save multiple workspaces, so if you're working with a pre-existing one, there's no need to go through the following procedure again.
+
+In Niryo Studio’s menu, open the Vision tab and click the button to add a new workspace. You will be guided, step by step, to set a workspace. Be sure to point the markers correctly in the right order!
+
+<div style="text-align: center">
+  <img src="images/niryo_workspace.png"/>
+</div>
 
 ### Program
 
