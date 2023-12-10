@@ -38,9 +38,6 @@ class ArucoDetection:
                     rotation_vectors, translation_vectors, _ = aruco.estimatePoseSingleMarkers(corners[i], 0.05, self.camera_matrix, self.distortion_coefficients)
 
                     aruco.drawDetectedMarkers(cv_image, corners, ids)
-                    # aruco.drawAxis(cv_image, self.camera_matrix, self.distortion_coefficients, rotation_vectors, translation_vectors, 0.1)
-
-                    # x,y = int(corners[1][0][0][0]),int(corners[1][0][0][1])
 
                     distance_to_tag = np.linalg.norm(translation_vectors[0])
                     print(f"detected marker {ids[i]} at distance {distance_to_tag} meters")

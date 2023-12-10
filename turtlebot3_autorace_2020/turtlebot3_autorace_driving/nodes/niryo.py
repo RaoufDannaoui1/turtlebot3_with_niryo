@@ -19,8 +19,6 @@ class NiryoConnection:
          if msg.data == 1:
             robot = NiryoRobot("192.168.0.150")
 
-            # robot.calibrate_auto()
-
             try:
                # Move to an observation position then
                robot.move_pose(*[0.001, -0.213, 0.217, 3.1, 1.395, 1.559])
@@ -36,7 +34,6 @@ class NiryoConnection:
 
             robot.close_connection()
             self.pub_niryo.publish(2)
-            # rospy.signal_shutdown("Task completed")  # Shutdown the ROS node after completing the task
 
 
 if __name__ == '__main__':
