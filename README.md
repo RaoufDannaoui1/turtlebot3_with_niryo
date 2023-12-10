@@ -366,6 +366,109 @@ if __name__ == '__main__':
 In this code, we used `open-cv` to have the `aruco` features. Then from the intrinsic camera calibration, we used the `camera matrix` and the `distortion coefficients` to have the exact distance between the tag and the TB3. Now this distance will be published on `/aruco_distance topic`
 
 
+### Drive Controller
+
+In this controller we are subscribed to the `/aruco_distance topic`, after the autonomous drive of the TB3 and arriving at the aruco area, it will check if the distance is satisfied.
+Then it will decided based on the need of the Niryo job, if needed it will stop for the Niryo to do his task and then continue the autonomous drive. If niryo Job is not needed The robot will stop.
+
+```python
+#!/usr/bin/env python 
+import rospy
+import numpy as np
+from std_msgs.msg import UInt8 ,Float64
+from geometry_msgs.msg import Twist
+
+from pyniryo import *
+import sys
+
+
+class ControlLane():
+    def __init__(self):
+        self.sub_lane = rospy.Subscriber('/control/lane', Float64, self.cbFollowLane, queue_size = 1)
+        self.sub_max_vel = rospy.Subscriber('/control/max_vel', Float64, self.cbGetMaxVel, queue_size = 1)
+        self.pub_cmd_vel = rospy.Publisher('/control/cmd_vel', Twist, queue_size = 1)
+
+        self.sub_aruco_distance = rospy.Subscriber('/aruco_distance', Float64, self.arucoCallBack, queue_size = 1)
+        
+        self.sub_niryo = rospy.Subscriber('/niryo_con', UInt8, self.niryoCallBack, queue_size = 1)
+        self.pub_niryo = rospy.Publisher('/niryo_con', UInt8, queue_size=10)
+
+
+        self.lastError = 0
+        self.MAX_VEL = 0.1
+
+        self.stopped = False
+        self.niryoJobWanted = True
+
+        rospy.on_shutdown(self.fnShutDown)
+
+    def cbGetMaxVel(self, max_vel_msg):
+        self.MAX_VEL = max_vel_msg.data
+
+    def arucoCallBack(self, msg):
+        distance_to_tag = msg.data
+        if 0.42 < distance_to_tag < 0.45:
+            self.stopped = True
+    
+    def niryoCallBack(self, msg):
+        if msg.data == 2:
+            self.stopped = False
+            self.niryoJobWanted = False
+
+    def cbFollowLane(self, desired_center):
+        if not self.stopped:
+            print("driving")
+            center = desired_center.data
+
+            error = center - 500
+
+            Kp = 0.0025
+            Kd = 0.007
+
+            angular_z = Kp * error + Kd * (error - self.lastError)
+            self.lastError = error
+            
+            twist = Twist()
+            # twist.linear.x = 0.05        
+            twist.linear.x = min(self.MAX_VEL * ((1 - abs(error) / 500) ** 2.2), 0.05)
+            twist.linear.y = 0
+            twist.linear.z = 0
+            twist.angular.x = 0
+            twist.angular.y = 0
+            twist.angular.z = -max(angular_z, -2.0) if angular_z < 0 else -min(angular_z, 2.0)
+            self.pub_cmd_vel.publish(twist)
+
+        elif self.niryoJobWanted:
+            print("stopped for niryo")
+            self.pub_niryo.publish(1)
+
+        else:
+            print("finished job")
+            self.stopped = True
+
+
+    def fnShutDown(self):
+        rospy.loginfo("Shutting down. cmd_vel will be 0")
+
+        twist = Twist()
+        twist.linear.x = 0
+        twist.linear.y = 0
+        twist.linear.z = 0
+        twist.angular.x = 0
+        twist.angular.y = 0
+        twist.angular.z = 0
+        self.pub_cmd_vel.publish(twist) 
+
+    def main(self):
+        rospy.spin()
+
+if __name__ == '__main__':
+    rospy.init_node('control_lane')
+    node = ControlLane()
+    node.main()
+```
+
+
 ## Niryo Ned 2 Configuration
 ### Connection
 
@@ -428,10 +531,10 @@ class NiryoConnection:
 
       self.sub_niryo = rospy.Subscriber('/niryo_con', UInt8, self.niryoCallBack, queue_size = 1)
       self.pub_niryo = rospy.Publisher('/niryo_con', UInt8, queue_size=10)
-      self.counter = 0
+      self.jobDone = False
    def niryoCallBack(self, msg):
-      self.counter += 1
-      if self.counter<=1:
+      self.jobDone = True
+      if not self.jobDone:
          print(msg.data)
          if msg.data == 1:
             robot = NiryoRobot("192.168.0.150")

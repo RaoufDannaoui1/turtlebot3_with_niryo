@@ -11,10 +11,10 @@ class NiryoConnection:
 
       self.sub_niryo = rospy.Subscriber('/niryo_con', UInt8, self.niryoCallBack, queue_size = 1)
       self.pub_niryo = rospy.Publisher('/niryo_con', UInt8, queue_size=10)
-      self.counter = 0
+      self.jobDone = False
    def niryoCallBack(self, msg):
-      self.counter += 1
-      if self.counter<=1:
+      self.jobDone = True
+      if not self.jobDone:
          print(msg.data)
          if msg.data == 1:
             robot = NiryoRobot("192.168.0.150")
